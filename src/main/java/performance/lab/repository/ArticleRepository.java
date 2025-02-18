@@ -28,4 +28,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("SELECT a FROM Article a WHERE a.title LIKE :keyword%")
     List<Article> findByTitleContainingWithIndexing(@Param("keyword") String keyword);
+
+    @Query("SELECT a.articleId FROM Article a WHERE a.title LIKE :keyword%")
+    List<Long> findArticleIdsByTitle(@Param("keyword") String keyword);
 }

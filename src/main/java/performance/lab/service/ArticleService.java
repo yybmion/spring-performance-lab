@@ -63,4 +63,15 @@ public class ArticleService {
         List<Article> articleList = articleRepository.findByTitleContainingWithIndexing(keyword);
         return ArticleListResponse.createResponse(articleList);
     }
+
+    @LogExecutionTime
+    public ArticleListResponse findArticleByTitleWithCoveringIndexing(String keyword) {
+        // 1. 먼저 ID만 조회 (인덱스만 사용)
+        List<Long> articleIds = articleRepository.findArticleIdsByTitle(keyword);
+
+        // 2. 조회된 ID로 실제 데이터 조회
+        List<Article> articles = articleRepository.findByIds(articleIds);
+
+        return ArticleListResponse.createResponse(articles);
+    }
 }

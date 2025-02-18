@@ -13,32 +13,38 @@ import performance.lab.service.ArticleService;
 @RequiredArgsConstructor
 public class ArticleController {
 
-    private final ArticleService mainservice;
+    private final ArticleService articleService;
 
     @GetMapping("/api/article/{userId}")
     private ResponseEntity<ArticleListResponse> findArticle(@PathVariable("userId") Long userId) {
-        ArticleListResponse response = mainservice.findArticle(userId);
+        ArticleListResponse response = articleService.findArticle(userId);
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/api/article/search")
     private ResponseEntity<ArticleListResponse> findArticle(@RequestParam("keyword") String keyword) {
-        return ResponseEntity.ok(mainservice.findArticleByContent(keyword));
+        return ResponseEntity.ok(articleService.findArticleByContent(keyword));
     }
 
     @GetMapping("/api/article/indexSearch")
     private ResponseEntity<ArticleListResponse> findArticleWithIndex(@RequestParam("keyword") String keyword) {
-        return ResponseEntity.ok(mainservice.findArticleByContentWithIndexing(keyword));
+        return ResponseEntity.ok(articleService.findArticleByContentWithIndexing(keyword));
     }
 
     @GetMapping("/api/article/coveringIndexSearch")
     private ResponseEntity<ArticleListResponse> findArticleWithCoveringIndex(@RequestParam("keyword") String keyword) {
-        return ResponseEntity.ok(mainservice.findArticleByContentWithCoveringIndexing(keyword));
+        return ResponseEntity.ok(articleService.findArticleByContentWithCoveringIndexing(keyword));
     }
 
     @GetMapping("/api/article/title/indexSearch")
     private ResponseEntity<ArticleListResponse> findArticleTitleWithIndex(@RequestParam("keyword") String keyword) {
-        return ResponseEntity.ok(mainservice.findArticleByTitleWithIndexing(keyword));
+        return ResponseEntity.ok(articleService.findArticleByTitleWithIndexing(keyword));
+    }
+
+    @GetMapping("/api/article/title/coveringIndexSearch")
+    private ResponseEntity<ArticleListResponse> findArticleTitleWithCoveringIndex(
+            @RequestParam("keyword") String keyword) {
+        return ResponseEntity.ok(articleService.findArticleByTitleWithCoveringIndexing(keyword));
     }
 }
