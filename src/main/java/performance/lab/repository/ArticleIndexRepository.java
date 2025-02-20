@@ -30,5 +30,5 @@ public interface ArticleIndexRepository extends JpaRepository<Article, Long> {
     List<Article> findByTitleWithIndexing(@Param("title") String title);
 
     @Query("SELECT a.articleId FROM Article a WHERE a.title LIKE :title%")
-    List<Long> findArticleIdsByTitle(@Param("keyword") String title);
+    List<Long> findArticleIdsByTitle(@Param("title") String title);
 }
