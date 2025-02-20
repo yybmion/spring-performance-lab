@@ -15,7 +15,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(indexes = @Index(name = "idx_title", columnList = "title"))
+@Table(indexes = {
+        @Index(name = "idx_title", columnList = "title"),
+        @Index(name = "idx_title_like", columnList = "title,like_count"),
+        @Index(name = "idx_reverse_title_like", columnList = "like_count,title")
+})
 public class Article {
 
     @Id

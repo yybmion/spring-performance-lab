@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import performance.lab.domain.Article;
 
 @Repository
-public interface ArticleRepository extends JpaRepository<Article, Long> {
+public interface ArticleIndexRepository extends JpaRepository<Article, Long> {
     @Query("SELECT a FROM Article a WHERE a.user.userId = :userId")
     List<Article> findByUserId(@Param("userId") Long userId);
 
@@ -31,7 +31,4 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("SELECT a.articleId FROM Article a WHERE a.title LIKE :title%")
     List<Long> findArticleIdsByTitle(@Param("keyword") String title);
-
-    @Query("SELECT a FROM Article a WHERE a.title LIKE :title% AND a.likeCount > 20")
-    List<Article> findByTitleAndLikeCount(@Param("title") String title);
 }

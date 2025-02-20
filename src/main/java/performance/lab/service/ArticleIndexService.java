@@ -6,18 +6,18 @@ import org.springframework.stereotype.Service;
 import performance.lab.domain.Article;
 import performance.lab.dto.ArticleListResponse;
 import performance.lab.monitor.LogExecutionTime;
-import performance.lab.repository.ArticleRepository;
+import performance.lab.repository.ArticleIndexRepository;
 
 @Service
 @RequiredArgsConstructor
-public class ArticleService {
-    private final ArticleRepository articleRepository;
+public class ArticleIndexService {
+    private final ArticleIndexRepository articleIndexRepository;
 
     /**
      * 기본 조회
      */
     public ArticleListResponse findArticle(Long userId) {
-        List<Article> articleList = articleRepository.findByUserId(userId);
+        List<Article> articleList = articleIndexRepository.findByUserId(userId);
 
         return ArticleListResponse.createResponse(articleList);
     }
@@ -27,7 +27,7 @@ public class ArticleService {
      */
     @LogExecutionTime
     public ArticleListResponse findArticleByContent(String keyword) {
-        List<Article> articleList = articleRepository.findByContentContaining(keyword);
+        List<Article> articleList = articleIndexRepository.findByContentContaining(keyword);
         return ArticleListResponse.createResponse(articleList);
     }
 
@@ -36,7 +36,7 @@ public class ArticleService {
      */
     @LogExecutionTime
     public ArticleListResponse findArticleByContentWithIndexing(String keyword) {
-        List<Article> articleList = articleRepository.findByContentContainingWithIndexing(keyword);
+        List<Article> articleList = articleIndexRepository.findByContentContainingWithIndexing(keyword);
         return ArticleListResponse.createResponse(articleList);
     }
 
@@ -46,10 +46,10 @@ public class ArticleService {
     @LogExecutionTime
     public ArticleListResponse findArticleByContentWithCoveringIndexing(String keyword) {
         // 1. 먼저 ID만 조회 (인덱스만 사용)
-        List<Long> articleIds = articleRepository.findArticleIdsByContent(keyword);
+        List<Long> articleIds = articleIndexRepository.findArticleIdsByContent(keyword);
 
         // 2. 조회된 ID로 실제 데이터 조회
-        List<Article> articles = articleRepository.findByIds(articleIds);
+        List<Article> articles = articleIndexRepository.findByIds(articleIds);
 
         return ArticleListResponse.createResponse(articles);
     }
@@ -59,7 +59,7 @@ public class ArticleService {
      */
     @LogExecutionTime
     public ArticleListResponse findArticleByTitleWithIndexing(String title) {
-        List<Article> articleList = articleRepository.findByTitleWithIndexing(title);
+        List<Article> articleList = articleIndexRepository.findByTitleWithIndexing(title);
         return ArticleListResponse.createResponse(articleList);
     }
 
@@ -69,17 +69,11 @@ public class ArticleService {
     @LogExecutionTime
     public ArticleListResponse findArticleByTitleWithCoveringIndexing(String title) {
         // 1. 먼저 ID만 조회 (인덱스만 사용)
-        List<Long> articleIds = articleRepository.findArticleIdsByTitle(title);
+        List<Long> articleIds = articleIndexRepository.findArticleIdsByTitle(title);
 
         // 2. 조회된 ID로 실제 데이터 조회
-        List<Article> articles = articleRepository.findByIds(articleIds);
+        List<Article> articles = articleIndexRepository.findByIds(articleIds);
 
         return ArticleListResponse.createResponse(articles);
-    }
-
-    @LogExecutionTime
-    public ArticleListResponse findArticleByTitleAndLikeCount(String title) {
-        List<Article> articleList = articleRepository.findByTitleAndLikeCount(title);
-        return ArticleListResponse.createResponse(articleList);
     }
 }
