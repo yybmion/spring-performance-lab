@@ -1,5 +1,6 @@
 package performance.lab.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class User {
 
     private String nickName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Article> article;
 
