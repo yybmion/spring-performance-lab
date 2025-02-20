@@ -55,23 +55,31 @@ public class ArticleService {
     }
 
     /**
-     * 선택도 이슈 해결을 위해 title 조회로 변경
-     * title 인덱스 적용 후 title 조회
+     * 선택도 이슈 해결을 위해 title 조회로 변경 title 인덱스 적용 후 title 조회
      */
     @LogExecutionTime
-    public ArticleListResponse findArticleByTitleWithIndexing(String keyword) {
-        List<Article> articleList = articleRepository.findByTitleContainingWithIndexing(keyword);
+    public ArticleListResponse findArticleByTitleWithIndexing(String title) {
+        List<Article> articleList = articleRepository.findByTitleWithIndexing(title);
         return ArticleListResponse.createResponse(articleList);
     }
 
+    /**
+     * title 커버링인덱스 전체조회이기에 성능은 위와 비슷
+     */
     @LogExecutionTime
-    public ArticleListResponse findArticleByTitleWithCoveringIndexing(String keyword) {
+    public ArticleListResponse findArticleByTitleWithCoveringIndexing(String title) {
         // 1. 먼저 ID만 조회 (인덱스만 사용)
-        List<Long> articleIds = articleRepository.findArticleIdsByTitle(keyword);
+        List<Long> articleIds = articleRepository.findArticleIdsByTitle(title);
 
         // 2. 조회된 ID로 실제 데이터 조회
         List<Article> articles = articleRepository.findByIds(articleIds);
 
         return ArticleListResponse.createResponse(articles);
+    }
+
+    @LogExecutionTime
+    public ArticleListResponse findArticleByTitleAndLikeCount(String title) {
+        List<Article> articleList = articleRepository.findByTitleAndLikeCount(title);
+        return ArticleListResponse.createResponse(articleList);
     }
 }

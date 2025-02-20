@@ -67,6 +67,7 @@ public class DataInitializer {
                             null,
                             random.nextDouble() + "t",
                             "Content_" + j,
+                            random.nextInt(100),
                             user
                     );
                     entityManager.persist(article);

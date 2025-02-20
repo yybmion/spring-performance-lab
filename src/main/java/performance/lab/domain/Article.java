@@ -24,16 +24,18 @@ public class Article {
 
     private String title;
     private String content;
+    private Integer likeCount;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public static Article create(Long articleId, String title, String content, User user){
+    public static Article create(Long articleId, String title, String content, Integer likeCount, User user) {
         Article article = new Article();
         article.articleId = articleId;
         article.title = title;
         article.content = content;
+        article.likeCount = likeCount;
         article.user = user;
         return article;
     }

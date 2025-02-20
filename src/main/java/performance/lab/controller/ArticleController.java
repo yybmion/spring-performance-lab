@@ -38,13 +38,19 @@ public class ArticleController {
     }
 
     @GetMapping("/api/article/title/indexSearch")
-    private ResponseEntity<ArticleListResponse> findArticleTitleWithIndex(@RequestParam("keyword") String keyword) {
-        return ResponseEntity.ok(articleService.findArticleByTitleWithIndexing(keyword));
+    private ResponseEntity<ArticleListResponse> findArticleTitleWithIndex(@RequestParam("title") String title) {
+        return ResponseEntity.ok(articleService.findArticleByTitleWithIndexing(title));
     }
 
     @GetMapping("/api/article/title/coveringIndexSearch")
     private ResponseEntity<ArticleListResponse> findArticleTitleWithCoveringIndex(
-            @RequestParam("keyword") String keyword) {
-        return ResponseEntity.ok(articleService.findArticleByTitleWithCoveringIndexing(keyword));
+            @RequestParam("title") String title) {
+        return ResponseEntity.ok(articleService.findArticleByTitleWithCoveringIndexing(title));
+    }
+
+    @GetMapping("/api/article/title/likeCount")
+    private ResponseEntity<ArticleListResponse> findArticleTitleAndLikeCount(
+            @RequestParam("title") String title) {
+        return ResponseEntity.ok(articleService.findArticleByTitleAndLikeCount(title));
     }
 }
