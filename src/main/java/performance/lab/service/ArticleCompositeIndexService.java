@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import performance.lab.domain.Article;
 import performance.lab.dto.ArticleListResponse;
-import performance.lab.monitor.LogExecutionTime;
+import performance.lab2.monitor.LogExecutionTime;
 import performance.lab.repository.ArticleCompositeIndexRepository;
 
 @Service

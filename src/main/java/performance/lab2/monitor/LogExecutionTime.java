@@ -1,4 +1,4 @@
-package performance.lab.monitor;
+package performance.lab2.monitor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
