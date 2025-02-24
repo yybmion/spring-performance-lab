@@ -10,4 +10,7 @@ import performance.lab2.domain.Team;
 public interface TeamRepository extends JpaRepository<Team, Long> {
     @Query("select t from Team t")
     List<Team> findAllTeam();
+
+    @Query("select distinct t from Team t join fetch t.members")
+    List<Team> findAllTeamWithMembers();
 }

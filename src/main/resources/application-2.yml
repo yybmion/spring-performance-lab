@@ -20,3 +20,9 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: false
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+    org.hibernate.orm.jdbc.bind: TRACE  # 바인딩되는 파라미터 값을 표시
