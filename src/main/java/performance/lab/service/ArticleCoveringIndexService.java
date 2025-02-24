@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import performance.lab.domain.Article;
 import performance.lab.dto.ArticlePageResponse;
 import performance.lab.dto.ArticleTtitleLikeCountResponse;
-import performance.lab.monitor.LogExecutionTime;
+import performance.lab2.monitor.LogExecutionTime;
 import performance.lab.repository.ArticleCoveringIndexRepository;
 
 @Service
