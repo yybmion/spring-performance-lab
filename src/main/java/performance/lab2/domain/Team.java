@@ -10,6 +10,7 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 @Entity
 @Getter
@@ -21,6 +22,7 @@ public class Team {
 
     private String name;
 
+    // @BatchSize(size = 100)  application.yml 에 적용하는 방식과 같음
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 

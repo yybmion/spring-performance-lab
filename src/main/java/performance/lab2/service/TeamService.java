@@ -58,4 +58,22 @@ public class TeamService {
         log.info("Fetch Join 총 쿼리 수: {}", queryCount.get());
         return result;
     }
+
+    /**
+     * EntityGraph 적용
+     */
+    @LogExecutionTime
+    public List<TeamResponseDto> findTeamsWithEntityGraph() {
+        AtomicInteger queryCount = new AtomicInteger(0);
+
+        List<Team> teams = teamRepository.findAllTeamWithEntityGraph();
+        queryCount.incrementAndGet();
+
+        List<TeamResponseDto> result = teams.stream()
+                .map(TeamResponseDto::of)  // TeamResponseDto.of() 메소드 직접 참조
+                .collect(Collectors.toList());
+
+        log.info("EntityGraph 총 쿼리 수: {}", queryCount.get());
+        return result;
+    }
 }

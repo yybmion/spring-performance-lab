@@ -26,4 +26,10 @@ public class TeamController {
         List<TeamResponseDto> response = teamService.findTeamsWithMembers();
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/api/teams/entityGraph")
+    public ResponseEntity<List<TeamResponseDto>> getTeamsWithEntityGraph() {
+        List<TeamResponseDto> response = teamService.findTeamsWithEntityGraph();
+        return ResponseEntity.ok(response);
+    }
 }
