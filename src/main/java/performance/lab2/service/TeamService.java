@@ -21,7 +21,6 @@ import performance.lab2.repository.TeamRepository;
 @Slf4j
 @Service
 @AllArgsConstructor
-@Transactional(readOnly = true)
 public class TeamService {
     private final TeamRepository teamRepository;
 
@@ -29,6 +28,7 @@ public class TeamService {
      * N+1 문제 (일반 조회)
      */
     @LogExecutionTime
+    @Transactional(readOnly = true)
     public List<TeamResponseDto> findTeams() {
         AtomicInteger queryCount = new AtomicInteger(0);
 
