@@ -34,4 +34,10 @@ public class ProductController {
             @PathVariable("category") ProductCategory category) {
         return ResponseEntity.ok(productService.calculateAverageRatingUsingCaffeineCache(category));
     }
+
+    @GetMapping("/category/{category}/average-rating/ehcache")
+    public ResponseEntity<Double> getAverageRatingUsingEhCache(
+            @PathVariable("category") ProductCategory category) {
+        return ResponseEntity.ok(productService.calculateAverageRatingUsingEhCache(category));
+    }
 }

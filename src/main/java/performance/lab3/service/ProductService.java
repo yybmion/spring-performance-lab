@@ -71,4 +71,21 @@ public class ProductService {
 
         return averageRating != null ? averageRating : 0.0;
     }
+
+    /**
+     * EhCache를 사용한 카테고리별 평균 평점 계산
+     */
+    @Cacheable(value = "averageRatingByCategory_ehcache", key = "#p0", cacheManager = "ehCacheCacheManager")
+    @Transactional(readOnly = true)
+    public Double calculateAverageRatingUsingEhCache(ProductCategory category) {
+        log.info("EhCache 미스! 카테고리별 평균 평점 계산: {}", category);
+        long startTime = System.currentTimeMillis();
+
+        Double averageRating = productRepository.calculateAverageRatingByCategory(category);
+
+        long endTime = System.currentTimeMillis();
+        log.info("EhCache - 카테고리별 평균 평점 계산 완료: {}ms, 결과: {}", (endTime - startTime), averageRating);
+
+        return averageRating != null ? averageRating : 0.0;
+    }
 }
