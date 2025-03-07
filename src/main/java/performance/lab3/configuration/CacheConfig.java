@@ -19,12 +19,12 @@ public class CacheConfig {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
 
         cacheManager.setCaffeine(Caffeine.newBuilder()
-                .maximumSize(500)
+                .maximumSize(15)
                 .expireAfterAccess(10, TimeUnit.MINUTES)
                 .recordStats());
 
         cacheManager.setCacheNames(Arrays.asList(
-                "averageRatingByCategory"));
+                "averageRatingByCategory","simpleHitRateTest","adaptionTest"));
 
         return cacheManager;
     }

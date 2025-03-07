@@ -10,9 +10,13 @@
             <ttl unit="minutes">5</ttl>
         </expiry>
         <resources>
-            <heap unit="entries">500</heap>
+            <heap unit="entries">15</heap>
         </resources>
     </cache-template>
 
     <cache alias="averageRatingByCategory_ehcache" uses-template="default"/>
+
+    <!-- 추가: 테스트에 필요한 캐시들 -->
+    <cache alias="simpleHitRateTest" uses-template="default"/>
+    <cache alias="adaptionTest" uses-template="default"/>
 </config>
